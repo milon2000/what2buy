@@ -15,7 +15,7 @@ class App extends Component {
     this.setState({
       recipes: recipes
     })
-    console.log(recipe);
+    console.log(recipe.id);
   }
 
   deleteRecipe = (id) => {
