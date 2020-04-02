@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import RecipeList from './components/RecipeList';
+import AddRecipe from './components/AddRecipe';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    recipes: [
+      { title: 'Kopytka', ingr: 'mąka', recipe: 'bxsjm', id: '1'},
+      { title: 'Zielone kluski', ingr: 'ziemniaki', recipe: 'bxsjm', id: '2'}
+    ]
+  }
+  addRecipe = (recipe) => {
+    recipe.id = Math.random();
+    let recipes = [...this.state.recipes, recipe];
+    this.setState({
+      recipes: recipes
+    })
+  }
+
+  deleteRecipe = (id) => {
+    let recipes = this.state.recipes.filter(recipe => {
+      return (recipe.id !==id)
+    });
+    this.setState({
+      recipes: recipes
+    })
+  }
+  render() {
+    return (
+      <div className="App">
+        <RecipeList deleteRecipe={this.deleteRecipe} recipes={this.state.recipes} />
+        <AddRecipe addRecipe={this.addRecipe} />
+      </div>
+    );
+  }
+  
 }
 
 export default App;
